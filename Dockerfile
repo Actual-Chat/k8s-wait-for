@@ -2,7 +2,7 @@ FROM alpine:3.19.1
 
 ARG VCS_REF
 ARG BUILD_DATE
-ARG TARGETARCH
+ARG TARGETARCH=amd64
 
 # Metadata
 LABEL org.label-schema.vcs-ref=$VCS_REF \
@@ -10,7 +10,7 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.docker.dockerfile="/Dockerfile"
 
-ENV KUBE_LATEST_VERSION="v1.25.4"
+ENV KUBE_LATEST_VERSION="v1.30.0"
 ENV NAME_SUFFIX=""
 
 RUN apk add --update --no-cache ca-certificates=20240226-r0 curl=8.5.0-r0 jq=1.7.1-r0 \
