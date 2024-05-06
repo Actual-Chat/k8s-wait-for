@@ -261,7 +261,7 @@ main() {
             ;;
     esac
 
-    main_name="$1"
+    main_name="$1${NAME_SUFFIX}"
     shift
 
     KUBECTL_ARGS="${*}"
