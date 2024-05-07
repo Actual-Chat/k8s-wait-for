@@ -12,6 +12,7 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
 
 ENV KUBE_LATEST_VERSION="v1.30.0"
 ENV NAME_SUFFIX=""
+ENV SKIP_WAIT_NOT_FOUND="false"
 
 RUN apk add --update --no-cache ca-certificates=20240226-r0 curl=8.5.0-r0 jq=1.7.1-r0 \
     && curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/$TARGETARCH/kubectl -o /usr/local/bin/kubectl \

@@ -164,12 +164,17 @@ get_job_state() {
     get_job_state_output=$(kubectl describe jobs "$get_job_state_name" $KUBECTL_ARGS 2>&1)
 
     if [ $? -ne 0 ]; then
+        if [ $SKIP_WAIT_NOT_FOUND = true ]; then
+            if echo "$get_job_state_output" | grep -q "(NotFound)"; then
+                return 0
+            fi
+        fi
         echo "$get_job_state_output" >&2
         kill -s TERM $TOP_PID
     elif [ $DEBUG -ge 2 ]; then
         echo "$get_job_state_output" >&2
     fi
-    if [ "$get_job_state_output" == "" ] || echo "$get_job_state_output" | grep -q "No resources found"; then
+    if [ "$get_job_state_output" == "" ] || echo "$get_job_state_output" | grep -q "(NotFound)"; then
         echo "wait_for.sh: No jobs found!" >&2
         kill -s TERM $TOP_PID
     fi
